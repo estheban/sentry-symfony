@@ -58,6 +58,11 @@
             <tag name="kernel.event_listener" event="Symfony\Component\Messenger\Event\WorkerMessageHandledEvent" method="onWorkerMessageHandled" priority="%sentry.listener_priorities.worker_error%" />
         </service>
 
+        <service id="Sentry\SentryBundle\EventListener\TracingListener" class="Sentry\SentryBundle\EventListener\TracingListener" public="false">
+            <argument type="service" id="Sentry\State\HubInterface" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
         <service id="Sentry\SentryBundle\Command\SentryTestCommand" class="Sentry\SentryBundle\Command\SentryTestCommand" public="false">
             <tag name="console.command" />
         </service>
