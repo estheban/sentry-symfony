@@ -4,6 +4,7 @@ namespace Sentry\SentryBundle\Test\EventListener;
 
 use Prophecy\Argument;
 use Sentry\Event;
+use Sentry\EventHint;
 use Sentry\SentryBundle\EventListener\ConsoleListener;
 use Sentry\SentryBundle\Test\BaseTestCase;
 use Sentry\SentrySdk;
@@ -79,10 +80,10 @@ class ConsoleListenerTest extends BaseTestCase
 
     private function getTagsContext(Scope $scope): array
     {
-        $event = new Event();
-        $scope->applyToEvent($event, []);
+        $event = Event::createEvent();
+        $scope->applyToEvent($event, EventHint::fromArray([]));
 
-        return $event->getTagsContext()->toArray();
+        return $event->getTags();
     }
 
     private function createConsoleCommandEvent(?Command $command): ConsoleCommandEvent

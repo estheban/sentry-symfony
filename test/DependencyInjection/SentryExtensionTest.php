@@ -2,12 +2,15 @@
 
 namespace Sentry\SentryBundle\Test\DependencyInjection;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Jean85\PrettyVersions;
 use Monolog\Logger as MonologLogger;
 use Prophecy\Argument;
 use Sentry\Breadcrumb;
 use Sentry\ClientInterface;
 use Sentry\Event;
+use Sentry\EventHint;
+use Sentry\EventId;
 use Sentry\Integration\IntegrationInterface;
 use Sentry\Monolog\Handler;
 use Sentry\Options;
@@ -537,27 +540,32 @@ class ClientMock implements ClientInterface
         return new Options();
     }
 
-    public function captureMessage(string $message, ?Severity $level = null, ?Scope $scope = null): ?string
+    public function captureMessage(string $message, ?Severity $level = null, ?Scope $scope = null): ?EventId
     {
         return null;
     }
 
-    public function captureException(\Throwable $exception, ?Scope $scope = null): ?string
+    public function captureException(\Throwable $exception, ?Scope $scope = null): ?EventId
     {
         return null;
     }
 
-    public function captureLastError(?Scope $scope = null): ?string
+    public function captureLastError(?Scope $scope = null): ?EventId
     {
         return null;
     }
 
-    public function captureEvent(array $payload, ?Scope $scope = null): ?string
+    public function captureEvent(Event $event, ?EventHint $hint = null, ?Scope $scope = null): ?EventId
     {
         return null;
     }
 
     public function getIntegration(string $className): ?IntegrationInterface
+    {
+        return null;
+    }
+
+    public function flush(?int $timeout = null): PromiseInterface
     {
         return null;
     }
